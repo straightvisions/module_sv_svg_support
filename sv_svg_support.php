@@ -23,17 +23,33 @@ class sv_svg_support extends init {
 		// Module Info
 		$this->set_module_title( 'SV SVG Support' );
 		$this->set_module_desc( __( 'This module loads styles of plugin <a href="https://de.wordpress.org/plugins/svg-support/" target="_blank">SVG Support</a> inline to improve Pagespeed.', $this->get_module_name() ) );
-
+		
+		// WP Styles
 		add_action( 'wp_print_styles', array($this, 'wp_print_styles'), 100 );
+		add_action('wp', array($this, 'load'));
+		
+		$this->register_scripts();
 	}
 	public function wp_print_styles() {
 		if(defined('BODHI_SVGS_PLUGIN_PATH')) {
 			// Gutenberg: load Styles inline for Pagespeed purposes
 			wp_dequeue_style('bodhi-svgs-attachment');
-
-			echo '<style data-id="' . $this->get_prefix() . '">';
-			require_once(BODHI_SVGS_PLUGIN_PATH . 'css/svgs-attachment.css');
-			echo '</style>';
 		}
+	}
+	protected function register_scripts(): sv_svg_support {
+		$this->scripts_queue['bodhi-svgs-attachment'] =
+			static::$scripts->create( $this )
+							->set_ID( 'bodhi-svgs-attachment' )
+							->set_path( BODHI_SVGS_PLUGIN_PATH . 'css/svgs-attachment.css', true)
+							->set_inline( true );
+		
+		return $this;
+	}
+	public function load() : sv_svg_support{
+		if(defined('BODHI_SVGS_PLUGIN_PATH')) {
+			$this->scripts_queue['bodhi-svgs-attachment']->set_is_enqueued( true );
+		}
+		
+		return $this;
 	}
 }

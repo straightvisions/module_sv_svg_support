@@ -40,7 +40,7 @@ class sv_svg_support extends modules {
 		return $this;
 	}
 	public function load() : sv_svg_support{
-		if(defined('BODHI_SVGS_PLUGIN_PATH') && $this->get_setting('load_inline')->run_type()->get_data()) {
+		if(defined('BODHI_SVGS_PLUGIN_PATH') && $this->get_setting('load_inline')->get_data()) {
 			$this->register_scripts();
 			$this->get_script('bodhi-svgs-attachment')->set_is_enqueued( true );
 		}

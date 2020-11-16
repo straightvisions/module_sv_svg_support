@@ -16,11 +16,9 @@ class sv_svg_support extends modules {
 		// Module Info
 		$this->set_section_title( __('SVG Support','sv100_companion') );
 		$this->set_section_desc( sprintf(__( 'This module loads styles of plugin %sSVG Support%s inline to improve Pagespeed.', 'sv100_companion' ),'<a href="https://de.wordpress.org/plugins/svg-support/" target="_blank">','</a>' ))
-		->set_section_type( 'settings' );
-		
-		$this->get_root()->add_section($this);
-		
-		$this->load_settings();
+		->set_section_type( 'settings' )
+		->load_settings()
+		->get_root()->add_section($this);
 		
 		// WP Styles
 		add_action( 'wp_print_styles', array($this, 'wp_print_styles'), 100 );

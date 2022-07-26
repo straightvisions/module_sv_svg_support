@@ -1,16 +1,6 @@
 <?php
 namespace sv100_companion;
 
-/**
- * @version         1.00
- * @author			straightvisions GmbH
- * @package			sv_100
- * @copyright		2017 straightvisions GmbH
- * @link			https://straightvisions.com
- * @since			1.0
- * @license			See license.txt or https://straightvisions.com
- */
-
 class sv_svg_support extends modules {
 	public function init() {
 		// Module Info
